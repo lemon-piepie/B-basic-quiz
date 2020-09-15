@@ -75,4 +75,214 @@ public class ResumeTest {
                 .andExpect(jsonPath("$[4].year",is(2015)))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    void userNameShouldNotEmpty() throws Exception {
+        User user = new User((long)2, null,(long)17,
+                "https://inews.gtimg.com/newsapp_match/0/3581582328/0",
+                "I am a easy-going boy.");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String userJson = objectMapper.writeValueAsString(user);
+
+        mockMvc.perform(post("/users")
+                .content(userJson).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void userNameShouldNotLongerThan128() throws Exception {
+        User user = new User((long)2, "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz" +
+                "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz" +
+                "zzzzzzzzzzzzzzzzzzzzzzzzzzzzz",(long)17,
+                "https://inews.gtimg.com/newsapp_match/0/3581582328/0",
+                "I am a easy-going boy.");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String userJson = objectMapper.writeValueAsString(user);
+
+        mockMvc.perform(post("/users")
+                .content(userJson).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void userAgeShouldNotLessThan16() throws Exception {
+        User user = new User((long)2, "Lily",(long)13,
+                "https://inews.gtimg.com/newsapp_match/0/3581582328/0",
+                "I am a optimistic girl.");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String userJson = objectMapper.writeValueAsString(user);
+
+        mockMvc.perform(post("/users")
+                .content(userJson).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void userAvatarShouldNotLesserThan8() throws Exception {
+        User user = new User((long)2, "Lily",(long)19,
+                "https:/",
+                "I am a optimistic girl.");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String userJson = objectMapper.writeValueAsString(user);
+
+        mockMvc.perform(post("/users")
+                .content(userJson).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void userAvatarShouldNotLongerThan512() throws Exception {
+        User user = new User((long)2, "Lily",(long)19,
+                "https://inews.gtimg.com/newsapp_match/0/3581582328/00000000000000000000000000000000000000000000" +
+                        "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" +
+                        "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" +
+                        "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" +
+                        "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" +
+                        "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+                "I am a optimistic girl.");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String userJson = objectMapper.writeValueAsString(user);
+
+        mockMvc.perform(post("/users")
+                .content(userJson).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void userDescriptionShouldNotLongerThan1024() throws Exception {
+        User user = new User((long)2, "Lily",(long)19,
+                "https://inews.gtimg.com/newsapp_match/0/3581582328/0",
+                "I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String userJson = objectMapper.writeValueAsString(user);
+
+        mockMvc.perform(post("/users")
+                .content(userJson).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void educationUserIdShouldNotNull() throws Exception {
+        Education education = new Education(null,(long)2015,"I got Doctor degree",
+                "I major in Computer Science and got Doctor degree.");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String educationJson = objectMapper.writeValueAsString(education);
+
+        mockMvc.perform(post("/users/1/educations")
+                .content(educationJson).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void educationYearShouldNotNull() throws Exception {
+        Education education = new Education((long)1,null,"I got Doctor degree",
+                "I major in Computer Science and got Doctor degree.");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String educationJson = objectMapper.writeValueAsString(education);
+
+        mockMvc.perform(post("/users/1/educations")
+                .content(educationJson).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void educationTopicShouldNotLongerThan256() throws Exception {
+        Education education = new Education((long)1,(long)2015,"I got Doctor degree.I got Doctor degree." +
+                "I got Doctor degree.I got Doctor degree.I got Doctor degree.I got Doctor degree.I got Doctor degree." +
+                "I got Doctor degree.I got Doctor degree.I got Doctor degree.I got Doctor degree.I got Doctor degree." +
+                "I got Doctor degree.I got Doctor degree.I got Doctor degree.",
+                "I major in Computer Science and got Doctor degree.");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String educationJson = objectMapper.writeValueAsString(education);
+
+        mockMvc.perform(post("/users/1/educations")
+                .content(educationJson).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void educationDescriptionShouldNotLongerThan4096() throws Exception {
+        Education education = new Education((long)1,(long)2015,"I got Doctor degree.",
+                "I major in Computer Science and got Doctor degree.I am a optimistic girl.I am a " +
+                        "optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimis" +
+                        "tic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic girl.I am a optimistic " +
+                        "girl.I am a optimistic girl.I am a optimistic girl.");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String educationJson = objectMapper.writeValueAsString(education);
+
+        mockMvc.perform(post("/users/1/educations")
+                .content(educationJson).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
 }

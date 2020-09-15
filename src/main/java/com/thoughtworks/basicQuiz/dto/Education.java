@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Education {
+    @NotNull(message="请选择加入教育经历的用户ID")
     private Long userId;
 
     @NotNull(message="年份不能为空")
