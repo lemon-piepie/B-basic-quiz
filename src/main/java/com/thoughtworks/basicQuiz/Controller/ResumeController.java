@@ -24,5 +24,8 @@ public class ResumeController {
         return resumeService.getUserById(id);
     }
 
-
+    @GetMapping("/user/{id}/educations")
+    public List<Education> getEducationInformation(@PathVariable Long id) {
+        return resumeService.getEducationInformationById(id);
+    }
 }
