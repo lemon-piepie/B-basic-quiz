@@ -51,4 +51,8 @@ public class ResumeService {
     public void addNewUser(User user){
         userMap.put(user.getId(), user);
     }
+
+    public void addNewEducationInformation(Education education){
+        educationMap.add(education);
+    }
 }

@@ -32,4 +32,10 @@ public class ResumeController {
     public void addUserInformation(@RequestBody User user) {
         resumeService.addNewUser(user);
     }
+
+    @PostMapping("/user/{id}/educations")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addEducationInformation(@RequestBody Education education) {
+        resumeService.addNewEducationInformation(education);
+    }
 }
