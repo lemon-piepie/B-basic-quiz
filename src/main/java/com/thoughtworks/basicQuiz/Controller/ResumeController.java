@@ -6,6 +6,7 @@ import com.thoughtworks.basicQuiz.dto.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,13 +30,13 @@ public class ResumeController {
 
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addUserInformation(@RequestBody User user) {
+    public void addUserInformation(@RequestBody @Valid User user) {
         resumeService.addNewUser(user);
     }
 
     @PostMapping("/user/{id}/educations")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addEducationInformation(@RequestBody Education education) {
+    public void addEducationInformation(@RequestBody @Valid Education education) {
         resumeService.addNewEducationInformation(education);
     }
 }
