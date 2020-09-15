@@ -16,9 +16,9 @@ public class Education {
     @NotNull(message="年份不能为空")
     private Long year;
 
-    @Size(min = 1, max =16, message = "标题长度不多于16字")
+    @Size(min = 1, max =256, message = "标题长度不多于256字")
     private String title;
 
-    @Size(min = 1, max =512, message = "请输入教育经历详情介绍，不多于512字")
+    @Size(min = 1, max =4096, message = "请输入教育经历详情介绍，不多于4096字")
     private String description;
 }
