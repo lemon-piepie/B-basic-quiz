@@ -18,12 +18,12 @@ public class ResumeController {
         this.resumeService = resumeService;
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
     public User getUserInformation(@PathVariable Long id) {
         return resumeService.getUserById(id);
     }
 
-    @GetMapping("/user/{id}/educations")
+    @GetMapping("/users/{id}/educations")
     public List<Education> getEducationInformation(@PathVariable Long id) {
         return resumeService.getEducationInformationById(id);
     }
@@ -34,7 +34,7 @@ public class ResumeController {
         resumeService.addNewUser(user);
     }
 
-    @PostMapping("/user/{id}/educations")
+    @PostMapping("/users/{id}/educations")
     @ResponseStatus(HttpStatus.CREATED)
     public void addEducationInformation(@RequestBody @Valid Education education) {
         resumeService.addNewEducationInformation(education);
