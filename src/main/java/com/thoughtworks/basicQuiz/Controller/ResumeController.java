@@ -3,10 +3,8 @@ package com.thoughtworks.basicQuiz.Controller;
 import com.thoughtworks.basicQuiz.Service.ResumeService;
 import com.thoughtworks.basicQuiz.dto.Education;
 import com.thoughtworks.basicQuiz.dto.User;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +25,11 @@ public class ResumeController {
     @GetMapping("/user/{id}/educations")
     public List<Education> getEducationInformation(@PathVariable Long id) {
         return resumeService.getEducationInformationById(id);
+    }
+
+    @PostMapping("/users")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addUserInformation(@RequestBody User user) {
+        resumeService.addNewUser(user);
     }
 }

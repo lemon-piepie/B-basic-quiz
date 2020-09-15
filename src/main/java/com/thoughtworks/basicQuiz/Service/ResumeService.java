@@ -47,4 +47,8 @@ public class ResumeService {
         }
         return resultList;
     }
+
+    public void addNewUser(User user){
+        userMap.put(user.getId(), user);
+    }
 }
