@@ -11,7 +11,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ErrorResult {
-    @JsonFormat(shape= JsonFormat.Shape.NUMBER)
     private Date timestamp;
     private Integer code;
     private String error;

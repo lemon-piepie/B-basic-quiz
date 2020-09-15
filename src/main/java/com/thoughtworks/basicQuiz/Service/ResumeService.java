@@ -1,5 +1,6 @@
 package com.thoughtworks.basicQuiz.Service;
 
+import com.thoughtworks.basicQuiz.Exception.UserNoExistException;
 import com.thoughtworks.basicQuiz.dto.Education;
 import com.thoughtworks.basicQuiz.dto.User;
 import lombok.var;
@@ -35,17 +36,24 @@ public class ResumeService {
     }
 
     public User getUserById(Long id) {
+        if (userMap.get(id) == null) {
+            throw new UserNoExistException();
+        }
         return userMap.get(id);
     }
 
     public List<Education> getEducationInformationById (Long id) {
-        List<Education> resultList = new ArrayList<>();
-        for (var education : educationMap) {
-            if (education.getUserId() == id) {
-                resultList.add(education);
+        if (userMap.get(id) == null) {
+            throw new UserNoExistException();
+        }else{
+            List<Education> resultList = new ArrayList<>();
+            for (var education : educationMap) {
+                if (education.getUserId() == id) {
+                    resultList.add(education);
+                }
             }
+            return resultList;
         }
-        return resultList;
     }
 
     public void addNewUser(User user){
