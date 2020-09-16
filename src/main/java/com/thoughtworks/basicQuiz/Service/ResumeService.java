@@ -11,10 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// GTB: - 可以把存储相关的职责转移到 Repository 中去
 @Service
 public class ResumeService {
 
+    // GTB: - 为什么是 static 变量
     private static Map<Long, User> userMap = new HashMap<>();
+    // GTB: 这是 map 么？
     private static List<Education> educationMap = new ArrayList<Education>();
 
     public ResumeService(){
@@ -43,6 +46,7 @@ public class ResumeService {
     }
 
     public List<Education> getEducationInformationById (Long id) {
+        // GTB: - 这里的 else 可以去掉
         if (userMap.get(id) == null) {
             throw new UserNoExistException();
         }else{

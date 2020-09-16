@@ -59,6 +59,7 @@ public class ResumeTest {
                 .andExpect(status().isOk());
     }
 
+    // GTB: - 这个测试会随机失败，一定要找到原因，修好！
     @Test
     void shouldAddEducationInformation() throws Exception {
         Education education = new Education((long)1,(long)2015,"I got Doctor degree",
