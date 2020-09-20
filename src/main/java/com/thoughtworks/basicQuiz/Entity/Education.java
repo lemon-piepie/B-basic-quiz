@@ -3,13 +3,17 @@ package com.thoughtworks.basicQuiz.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Setter
 public class Education {
     @NotNull(message="请选择加入教育经历的用户ID")
     private Long userId;
@@ -22,4 +26,8 @@ public class Education {
 
     @Size(min = 1, max =4096, message = "请输入教育经历详情介绍，不多于4096字")
     private String description;
+
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn
+    private User user;
 }
