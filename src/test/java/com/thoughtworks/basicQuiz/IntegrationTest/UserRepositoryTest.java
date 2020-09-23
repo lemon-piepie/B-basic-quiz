@@ -1,7 +1,8 @@
-package com.thoughtworks.capability.gtb.springdatajpaintro;
+package com.thoughtworks.basicQuiz.IntegrationTest;
 
-import com.thoughtworks.capability.gtb.springdatajpaintro.Entity.User;
-import com.thoughtworks.capability.gtb.springdatajpaintro.Repository.UserRepository;
+
+import com.thoughtworks.basicQuiz.Entity.User;
+import com.thoughtworks.basicQuiz.Repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

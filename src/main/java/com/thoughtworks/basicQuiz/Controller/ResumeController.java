@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
+//ctrl+shift+T 快捷键创建、跳转到Test
 public class ResumeController {
     ResumeService resumeService;
 

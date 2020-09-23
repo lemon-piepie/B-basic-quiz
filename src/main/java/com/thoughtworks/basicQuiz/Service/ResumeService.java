@@ -33,12 +33,12 @@ public class ResumeService {
     }
 
     public Long addNewUser(User user){
-        userRepository.save(user);
-        return user.getId();
+        User save = userRepository.save(user);
+        return save.getId();
     }
 
     public Long addNewEducationInformation(Education education){
-        educationRepository.save(education);
-        return education.getUserId();
+        Education save = educationRepository.save(education);
+        return save.getUserId();
     }
 }

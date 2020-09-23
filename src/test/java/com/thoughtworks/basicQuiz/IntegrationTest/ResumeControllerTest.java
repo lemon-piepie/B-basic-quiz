@@ -1,10 +1,11 @@
-package com.thoughtworks.capability.gtb.springdatajpaintro;
+package com.thoughtworks.basicQuiz.IntegrationTest;
 
-import com.thoughtworks.capability.gtb.springdatajpaintro.Controller.ResumeController;
-import com.thoughtworks.capability.gtb.springdatajpaintro.Entity.Education;
-import com.thoughtworks.capability.gtb.springdatajpaintro.Entity.User;
-import com.thoughtworks.capability.gtb.springdatajpaintro.Error.UserNoExistException;
-import com.thoughtworks.capability.gtb.springdatajpaintro.Service.ResumeService;
+
+import com.thoughtworks.basicQuiz.Controller.ResumeController;
+import com.thoughtworks.basicQuiz.Entity.Education;
+import com.thoughtworks.basicQuiz.Entity.User;
+import com.thoughtworks.basicQuiz.Exception.UserNoExistException;
+import com.thoughtworks.basicQuiz.Service.ResumeService;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;

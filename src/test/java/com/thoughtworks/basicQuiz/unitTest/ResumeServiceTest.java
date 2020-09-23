@@ -1,4 +1,4 @@
-package com.thoughtworks.unitTest;
+package com.thoughtworks.basicQuiz.unitTest;
 
 import com.thoughtworks.basicQuiz.Entity.Education;
 import com.thoughtworks.basicQuiz.Entity.User;
@@ -60,9 +60,9 @@ public class ResumeServiceTest {
 
             @Test
             public void should_return_user() {
-                when(userRepository.findOneById(123L)).thenReturn(Optional.of(user));
+                when(userRepository.findOneById(10L)).thenReturn(Optional.of(user));
 
-                User foundUser = resumeService.getUserById(123L);
+                User foundUser = resumeService.getUserById(10L);
 
                 assertThat(foundUser).isEqualTo(User.builder()
                         .id(10L)
@@ -133,6 +133,7 @@ public class ResumeServiceTest {
         class addUserInformation {
             @Test
             void should_success () {
+
                 User newUser = User.builder()
                         .id(15L)
                         .name("Lily")
@@ -140,6 +141,8 @@ public class ResumeServiceTest {
                         .avatar("http://...")
                         .description("A pretty girl")
                         .build();
+                when(userRepository.save(newUser)).thenReturn(newUser);
+
                 assertThat(resumeService.addNewUser(newUser)).isEqualTo(15L);
             }
         }
@@ -155,6 +158,7 @@ public class ResumeServiceTest {
                         .description("Major in Economic.")
                         .user(user)
                         .build();
+                when(educationRepository.save(newEducation)).thenReturn(newEducation);
                 assertThat(resumeService.addNewEducationInformation(newEducation)).isEqualTo(10L);
             }
         }
